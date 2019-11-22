@@ -1,12 +1,15 @@
-Realizzare un'applicazione PHP per la gestione di un quotidiano online con almeno:
-- una home con un estratto degli articoli del giorno
-- una pagina dell'articolo completo
-- una login per entrare nell'area di amministrazione
-- un sistema di gestione articoli con operazioni CRUD
-- una pagina di logout
+# Progetto finale del corso "PHP Programming"
+### Gruppo: M. Gregoricchio, D. Carbonati
 
-- Il progetto deve utilizzare SIMPLEMVC
-- Gli articoli devono essere memorizzati in un database (MySQL o SQLite) utilizzando di PHP per l'accesso
-- Deve esserci almeno un test unitario con
-- I codici sorgenti devono essere su github
-- La consegna avviene tramite invio le .zip su moodle
+## Note:
+
+Progetto finale del corso curricolare di programmazione in PHP presso **l'ITS ICT Piemonte**.
+
+Il progetto consistetà di una *web-application* che simulerà il funzionamento un quotidino online.
+
+## Requisiti:
+
+- Utilizzare il framework "scolastico" MVC [Simple MVC](https://github.com/ezimuel/simplemvc).
+- Memorizzare gli articoli su DB (verrà utilizzato [Maria DB](https://mariadb.org/)).
+- Utilizzare la classe [PDO](https://www.php.net/manual/en/book.pdo.php) per l'accesso al DB.
+- Eseguire almeno un test unitario con [PHPUnit](https://phpunit.de/).
