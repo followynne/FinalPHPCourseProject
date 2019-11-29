@@ -6,7 +6,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use League\Plates\Engine;
 use SimpleMVC\Model\DBOperations;
 
-class Home implements ControllerInterface
+class Index implements ControllerInterface
 {
     protected $plates;
     protected $conn;
@@ -19,9 +19,11 @@ class Home implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
-        $articles = $this->conn->getArticles();
-        $displaybuttonlogin = !isset($_SESSION) ? "Login" : "Go to your Article Management";
-        echo $this->plates->render('home', ['logbtn' => $displaybuttonlogin, 'articles'=> $articles]);
+        if (!isset($_SESSION)){
+            echo $this->plates->render('login', []);
+        } else {
+            echo $this->plates->render('home', []);
+        }
     }
 
 }
