@@ -3,9 +3,9 @@
 <h1>Login</h1>
 <div>
     <form action="/register" method="POST" name="register">
-        <input type="email" name="user"><br/>
-        <input type="password" name="pwd"><br/>
-        <input type="password" name="pwd"><br/>
+        <p>email</p><input type="email" name="user"><br/>
+        <p>password</p><input type="password" name="pwd"><br/>
+        <p>re-type password</p><input type="password" name="pwd-check"><br/>
         <input type="submit" name="register">
     </form>
 </div>
