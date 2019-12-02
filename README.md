@@ -1,5 +1,5 @@
 # Progetto finale del corso "PHP Programming"
-### Gruppo: M. Gregoricchio, D. Carbonati
+### Gruppo: M. Gregoricchio, D. Carbonati, I. Lo Presti
 
 ## Note:
 

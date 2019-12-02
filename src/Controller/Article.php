@@ -4,14 +4,14 @@ namespace SimpleMVC\Controller;
 
 use Psr\Http\Message\ServerRequestInterface;
 use League\Plates\Engine;
-use SimpleMVC\Model\DBOperations;
+use SimpleMVC\Model\ConnDB;
 
 class Article implements ControllerInterface
 {
     protected $plates;
     protected $conn;
 
-    public function __construct(Engine $plates, DBOperations $conn)
+    public function __construct(Engine $plates, ConnDB $conn)
     {   
         $this->plates = $plates;
         $this->conn = $conn;
@@ -19,7 +19,7 @@ class Article implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
-        $article = $this->conn->getArticle($request->getQueryParams()['seotitle']);
+        $article = $this->conn->getArticleId($request->getQueryParams()['seotitle']);
         $displaybuttonlogin = !isset($_SESSION) ? "Login" : "Go to your Article Management";
         echo $this->plates->render('article', ['logbtn' => $displaybuttonlogin, 'article'=> $article]);
     }
