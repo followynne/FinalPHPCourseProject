@@ -1,6 +1,6 @@
 <?php $this->layout('layout', ['title' => 'HomePage']) ?>
 
-<a href="/login"><input type="button" value="<?= $this->e($logbtn)?>"></a>
+<a href="/login"><input type="button" value="Go back"></a>
 <a href="/"><input type="button" value="Go back to the Homepage"></a>
 
 <h1>Home page</h1>

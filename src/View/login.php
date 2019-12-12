@@ -1,5 +1,7 @@
 <?php $this->layout('layout', ['title' => 'Login Page']) ?>
 
+<a href="/"><input type="button" value="Go back to the Homepage"></a>
+
 <h1>Login</h1>
 <div>
     <form action="/login" method="POST" name="login">

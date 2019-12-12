@@ -4,7 +4,7 @@
 <a href="/"><input type="button" value="Go back to the Homepage"></a>
 
 <h1>Home page</h1>
-
+<ul>
 <?php foreach($articles as $data): ?>
     <li>
         <a href="/article?seotitle=<?= $this->e($data['seotitle'])?>">
@@ -14,3 +14,4 @@
         <p><?= $this->e($data['content']) ?></p>
     </li>
 <?php endforeach ?>
+</ul>

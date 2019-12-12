@@ -19,18 +19,19 @@ class ReadOnlyOpt
 
     function checkUser($data)
     {
-        $query = 'SELECT id FROM users where name = :user;';
+        $query = 'SELECT id FROM users where mail = :user;';
         $q = $this->pdo->prepare($query);
-        $q->bindParam(':user', $data['user']);
+        $q->bindValue(':user', $data);
         $q->execute();
-        $result = $q->fetch();
+        return $q->fetch();
     }
 
     function checkLogin($data)
     {
-        $query = 'SELECT * FROM users where name = :user;';
+        $mail = $data['mail'];
+        $query = 'SELECT * FROM users where mail = :user;';
         $q = $this->pdo->prepare($query);
-        $q->bindParam(':user', $data['user']);
+        $q->bindValue(':user', $mail);
         $q->execute();
         $result = $q->fetch();
         if (!$result) {
