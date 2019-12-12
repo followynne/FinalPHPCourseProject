@@ -19,9 +19,19 @@ class Register implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
+        if(!isset($_POST)){
+          echo $this->plates->render('register');
+        } else {
 
-      echo $this->plates->render('register');
+            if(!($user = $this->conn->checkUser($_POST['user']))){
+              $pdo = $this->conn->registerNewUser($_POST);
+              echo $this->plates->render('login');
+            } else {
+              // add here what to do if user already exist
 
-      // register logic
+              echo $this->plates->render('register');
+            }
+
+        }
     }
 }
