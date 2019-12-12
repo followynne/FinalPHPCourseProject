@@ -7,17 +7,15 @@ namespace SimpleMVC\Model;
 use \PDO;
 use \PDOException;
 
-class ConnDB
+class ConnDB extends ReadOnlyOpt
 {
   private $pdo;
-  private $read;
 
-  public function __construct(PDO $pdo, ReadOnlyOpt $read)
+  public function __construct(PDO $pdo)
   {
     $this->pdo = $pdo;
     $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $this->pdo->setAttribute(PDO::ATTR_ORACLE_NULLS, PDO::NULL_TO_STRING);
-    $this->read = $read;
   }
 
   function registerNewUser($data)
@@ -42,10 +40,5 @@ class ConnDB
     } catch (PDOException $ex) {
       return "I'm sorry, your user couldnt' be created.";
     }
-  }
-
-  function checkUser($data)
-  {
-    return $this->read->checkUser($data);
   }
 }
