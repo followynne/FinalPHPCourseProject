@@ -17,6 +17,15 @@ class ReadOnlyOpt
         $this->pdo->setAttribute(PDO::ATTR_ORACLE_NULLS, PDO::NULL_TO_STRING);
     }
 
+    function checkUser($data)
+    {
+        $query = 'SELECT id FROM users where name = :user;';
+        $q = $this->pdo->prepare($query);
+        $q->bindParam(':user', $data['user']);
+        $q->execute();
+        $result = $q->fetch();
+    }
+
     function checkLogin($data)
     {
         $query = 'SELECT * FROM users where name = :user;';
@@ -34,6 +43,7 @@ class ReadOnlyOpt
             }
         }
     }
+
     public function getAllArticle()
     {
         $sth = $this->pdo->prepare("SELECT * FROM articles;");

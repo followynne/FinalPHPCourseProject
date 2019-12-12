@@ -30,8 +30,7 @@ class Login implements ControllerInterface
             }
 
         } else {
-
-            if($login = $this->conn->checkLogin($_POST)){
+            if($this->conn->checkLogin($_POST)){
                 // set session cookie
                 echo $this->plates->render('admin');
             } else {
