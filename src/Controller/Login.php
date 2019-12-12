@@ -20,17 +20,29 @@ class Login implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
-        $result = $this->conn->checkLogin($request->getQueryParams());
-        //WIP - getQueryParams doesn't send both the params to the function.
-        if ($result == "Access Confirmed, Bzzzz, open the doors, disclose the secrets."){
-            $_SESSION['username'] = $request->getQueryParams()['user'];
-            echo $this->plates->render('admin');
+
+        if(!isset($_POST)){
+
+            if (isset($_SESSION)){
+                echo $this->plates->render('admin');
+            } else {
+                echo $this->plates->render('login');
+            }
+
         } else {
 
-            echo $this->plates->render('login');
+            if($login = $this->conn->checkLogin($_POST)){
+                // set session cookie
+                echo $this->plates->render('admin');
+            } else {
+
+                // add here what to do if login fail
+
+                echo $this->plates->render('login');
+            }
+
         }
-        
-        
+
     }
 
 }
