@@ -13,3 +13,10 @@ Il progetto consistetà di una *web-application* che simulerà il funzionamento 
 - Memorizzare gli articoli su DB (verrà utilizzato [Maria DB](https://mariadb.org/)).
 - Utilizzare la classe [PDO](https://www.php.net/manual/en/book.pdo.php) per l'accesso al DB.
 - Eseguire almeno un test unitario con [PHPUnit](https://phpunit.de/).
+
+## Istruzioni - WIP:
+creare 2 utenti db per il db importato -> instr. entrando come root
+grant select on database_name.* to 'read-only_user_name'@'%' identified by 'password';
+flush privileges;
+
+modificare .env example in config con i valori dell'utenza creata

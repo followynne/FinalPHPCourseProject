@@ -42,7 +42,7 @@ CREATE TABLE `articles` (
 
 LOCK TABLES `articles` WRITE;
 /*!40000 ALTER TABLE `articles` DISABLE KEYS */;
-INSERT INTO `articles` VALUES (1,1,'Bella la Vita in Caporella','bella-vita-caporella','2019-11-19','Siete solo grandi maledettiiiiiiiiiii'),(2,1,'Bella la Vita in Caporella 2 La vendetta','bella-vita2-caporella','2019-11-22','Siete solo  maledettiiiiiiiiiii ma figa ciò'),(3,2,'Query per entrare in stage qua','entrare-in-stage','2019-10-19','Siete solo maledettiiiiiiiiiii ma figa ciò');
+INSERT INTO `articles` VALUES (1,1,'Bella la Vita in Caporella','bella-vita-caporella','2019-11-19','Siete solo grandi maledettiiiiiiiiiii'),(2,1,'Bella la Vita in Caporella 2 La vendetta','bella-vita2-caporella','2019-11-22','Siete solo  maledettiiiiiiiiiii ciò'),(3,2,'Query per entrare in stage qua','entrare-in-stage','2019-10-19','Siete solo maledettiiiiiiiiiii okay');
 /*!40000 ALTER TABLE `articles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,7 +67,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'marcone','ciao'),(2,'testadicazzo','fuckulo'),(3,'maledicho','cazzo');
+INSERT INTO `users` VALUES (1,'test@test.it','provaprova'),(2,'test2@test.it','provaprova'),(3,'test3@test.it','provaprova');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

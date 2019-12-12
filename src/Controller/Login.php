@@ -4,14 +4,14 @@ namespace SimpleMVC\Controller;
 
 use Psr\Http\Message\ServerRequestInterface;
 use League\Plates\Engine;
-use SimpleMVC\Model\ConnDB;
+use SimpleMVC\Model\ReadOnlyOpt;
 
 class Login implements ControllerInterface
 {
     protected $plates;
     protected $conn;
 
-    public function __construct(Engine $plates, ConnDB $conn)
+    public function __construct(Engine $plates, ReadOnlyOpt $conn)
     {   
         $this->plates = $plates;
         $this->conn = $conn;
