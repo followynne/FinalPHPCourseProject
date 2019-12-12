@@ -6,14 +6,22 @@ use \PDO;
 use \PDOException;
 
 class ConnDB {
-    private $pdo; 
+    private $pdo;
     public function __construct(PDO $pdo)
     {
-        $this->pdo = $pdo; 
+        $this->pdo = $pdo;
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$this->pdo->setAttribute (PDO::ATTR_ORACLE_NULLS, PDO::NULL_TO_STRING);
     }
-    
+
+    function checkUser($data){
+        $query = 'SELECT id FROM users where name = :user;';
+        $q = $this->conn->prepare($query);
+        $q->bindParam(':user', $data['user']);
+        $q->execute();
+        $result = $q->fetch();
+    }
+
     function checkLogin($data){
         $query = 'SELECT * FROM users where name = :user;';
         $q = $this->conn->prepare($query);
@@ -30,7 +38,7 @@ class ConnDB {
             }
         }
       }
-    
+
       function registerNewUser($data){
         $query = 'select * from user_data where name = :user;';
         $q = $this->conn->prepare($query);
@@ -59,7 +67,7 @@ class ConnDB {
 
     public function getArticleId($seotitle){
         $sth=$pdo->prepare("SELECT * FROM articles WHERE seotitle = :id");
-        $sth->bindParam(':id', $seotitle); 
+        $sth->bindParam(':id', $seotitle);
         $sth->execute();
         $result = $sth->fetch();
         return $result;
