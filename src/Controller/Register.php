@@ -39,6 +39,7 @@ class Register implements ControllerInterface
           } else {
             $this->conn->registerNewUser($request->getParsedBody());
             echo $this->plates->render('login', ['msg' => 'Account Created.']);
+            die();
           }
         } catch (PDOException $ex) {
           echo $this->plates->render('register',  ['msg' => '500.']);
