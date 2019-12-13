@@ -19,4 +19,9 @@ creare 2 utenti db per il db importato -> instr. entrando come root
 grant select on database_name.* to 'read-only_user_name'@'%' identified by 'password';
 flush privileges;
 
+import : mysql -u user -p dbname < sqlscript.sql
+export: mysqldump -u username -p databasename > filename.sql
+
+prova@prova.it pw: marcone -> user for testing
+
 modificare .env example in config con i valori dell'utenza creata

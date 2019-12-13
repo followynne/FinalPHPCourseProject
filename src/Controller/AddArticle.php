@@ -1,35 +1,38 @@
 <?php
+
 declare(strict_types=1);
+
 namespace SimpleMVC\Controller;
 
-use Psr\Http\Message\ServerRequestInterface;
 use League\Plates\Engine;
+use Psr\Http\Message\ServerRequestInterface;
+use PDOException;
+use SimpleMVC\Model\ConnDB;
+
 class AddArticle implements ControllerInterface
 {
     protected $plates;
 
     public function __construct(Engine $plates, ConnDB $conn)
-    {   
+    {
         $this->plates = $plates;
         $this->conn = $conn;
     }
 
     public function execute(ServerRequestInterface $request)
     {
-        if (!isset($_SESSION['mail'])=""){
-            echo $this->plates->render('login', []);
-        } else if($request->getMethod() != 'POST'){
+        if ($_SESSION['mail'] == null) {
+            echo $this->plates->render('login', ['msg'=> '403 - Unauthorized']);
+        } else if ($request->getMethod() != 'POST') {
             echo $this->plates->render('add', []);
         } else {
-            $res = $this->conn->addNewArticle($request->getParsedBody());
-            if (!$res) {
-                echo "I'm sorry, your article couldnt' be added.";
-                return false;
-            } else {
-              return true;
-                    return false;
-            }  
+            try {
+                $this->conn->addNewArticle($request->getParsedBody(), (int) $_SESSION['iduser']);
+                echo $this->plates->render('admin', ['msg' => 'Articolo aggiunto.']);
+            } catch (PDOException $ex) {
+                echo $this->plates->render('add', ['msg' => 'I\'m sorry, your article couldnt\' be added']);
+                die();
+            }
         }
     }
-
 }

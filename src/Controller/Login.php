@@ -22,10 +22,7 @@ class Login implements ControllerInterface
     public function execute(ServerRequestInterface $request)
     {
         if ($request->getUri()->getPath() == '/logout') {
-            session_unset();
-            session_destroy();
-            session_regenerate_id(true);
-            header("Location:/");
+            $this->logout();
             exit();
         }
         if ($request->getMethod() != 'POST') {
@@ -35,12 +32,21 @@ class Login implements ControllerInterface
                 echo $this->plates->render('login', ['msg' => 'Benvenuto.']);
             }
         } else {
-            if ($this->conn->checkLogin($request->getParsedBody())) {
-                $_SESSION['mail'] = $request->getParsedBody()['mail'];
-                echo $this->plates->render('admin');
-            } else {
+            $id = $this->conn->checkLogin($request->getParsedBody());
+            if (!$id) {
                 echo $this->plates->render('login', ['msg' => 'Errore.']);
+            } else {
+                $_SESSION['mail'] = $request->getParsedBody()['mail'];
+                $_SESSION['iduser'] = $id;
+                echo $this->plates->render('admin');
             }
         }
+    }
+
+    private function logout (){
+        session_unset();
+        session_destroy();
+        session_regenerate_id(true);
+        header("Location:/");
     }
 }

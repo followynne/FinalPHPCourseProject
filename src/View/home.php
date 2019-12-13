@@ -5,9 +5,6 @@
         <a href="/logout"><input type="button" value="Log Out"></a>
     <?php endif ?>
 
-
-<a href="/"><input type="button" value="Go back to the Homepage"></a>
-
 <h1>Home page</h1>
 <ul>
 <?php foreach($articles as $data): ?>
@@ -16,7 +13,7 @@
             <p><?= $this->e($data['title']) ?></p>
         </a>
         <p><?= $this->e($data['art_date']) ?></p>
-        <p><?= $this->e($data['content']) ?></p>
+        <p><?= substr($this->e($data['content']), 0, 100) ?> [...]</p>
     </li>
 <?php endforeach ?>
 </ul>

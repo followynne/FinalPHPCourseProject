@@ -6,6 +6,7 @@
 
 <body>
     <?= $this->section('content') ?>
+    <?= $this->section('javascript')?>
 </body>
 
 </html>

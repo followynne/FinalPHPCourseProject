@@ -20,42 +20,66 @@ class ReadOnlyOpt
 
     function checkUser(string $data)
     {
-        $query = 'SELECT id, mail, pwd FROM users where mail = :user;';
-        $q = $this->pdo->prepare($query);
-        $q->bindValue(':user', $data);
-        $q->execute();
-        return $q->fetch();
+        try {
+            $query = 'SELECT id, mail, pwd FROM users where mail = :user;';
+            $q = $this->pdo->prepare($query);
+            $q->bindValue(':user', $data);
+            $q->execute();
+            return $q->fetch();
+        } catch (PDOException $ex) {
+            echo "Error";
+            echo $ex;
+            return false;
+        }
     }
 
     function checkLogin(array $data)
     {
         $mail = $data['mail'];
-        $result = $this->checkUser($mail);
-        if ($result['id'] == null) {
-            return false;
-        } else {
-            if (!password_verify($data['pwd'], $result['pwd'])) {
+        try {
+            $result = $this->checkUser($mail);
+            if ($result['id'] == null) {
                 return false;
             } else {
-                return true;
+                if (!password_verify($data['pwd'], $result['pwd'])) {
+                    return false;
+                } else {
+                    return $result['id'];
+                }
             }
+        } catch (PDOException $ex) {
+            echo "Error";
+            echo $ex;
+            return false;
         }
     }
 
     public function getAllArticle()
     {
-        $sth = $this->pdo->prepare("SELECT * FROM articles;");
-        $sth->execute();
-        $result = $sth->fetchAll();
-        return $result;
+        try {
+            $sth = $this->pdo->prepare("SELECT * FROM articles;");
+            $sth->execute();
+            $result = $sth->fetchAll();
+            return $result;
+        } catch (PDOException $ex) {
+            echo "Error";
+            echo $ex;
+            return false;
+        }
     }
 
     public function getArticleId(string $seotitle)
     {
-        $sth = $this->pdo->prepare("SELECT * FROM articles WHERE seotitle = :id");
-        $sth->bindParam(':id', $seotitle);
-        $sth->execute();
-        $result = $sth->fetch();
-        return $result;
+        try {
+            $sth = $this->pdo->prepare("SELECT * FROM articles WHERE seotitle = :id");
+            $sth->bindParam(':id', $seotitle);
+            $sth->execute();
+            $result = $sth->fetch();
+            return $result;
+        } catch (PDOException $ex) {
+            echo "Error";
+            echo $ex;
+            return false;
+        }
     }
 }

@@ -17,7 +17,7 @@ class ConnDB extends ReadOnlyOpt
 
   function registerNewUser(array $data)
   {
-    try
+    try {
       $pwd = password_hash($data['pwd'], PASSWORD_DEFAULT);
       $query = 'insert into users (mail, pwd) values (:name, :pwd);';
       $q = $this->pdo->prepare($query);
@@ -32,22 +32,20 @@ class ConnDB extends ReadOnlyOpt
     }
   }
 
-  function addNewArticle(array $data)
+  function addNewArticle(array $data, int $id)
   {
     try {
-      $query = 'insert into article (iduser, title,seotitle,art_date,content) values (:iduser, :title, :seotitle, :art_date, :content);';
+      $query = 'insert into articles (iduser, title,seotitle,art_date,content) values (:iduser, :title, :seotitle, :art_date, :content);';
       $q = $this->pdo->prepare($query);
-      $q->bindValue(':iduser', $data['iduser']);
+      $q->bindValue(':iduser', $id);
       $q->bindValue(':title', $data['title']);
       $q->bindValue(':seotitle', $data['seotitle']);
-      $q->bindValue(':art_date', $data['iduser']);
+      $q->bindValue(':art_date', $data['articledate']);
       $q->bindValue(':content', $data['content']);
-      $res = $q->execute();
-      return $ res;
+      $q->execute();
+      return true;
     } catch (PDOException $ex) {
-      echo "Error";
-      echo $ex;
-      return;
+      throw new PDOException;
     }
   }
 }

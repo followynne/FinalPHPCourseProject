@@ -15,9 +15,9 @@ class UserArticles implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
-        if (!isset($_SESSION)){
-            echo $this->plates->render('login', []);
-        } else {
+        if ($_SESSION['mail'] == null) {
+            echo $this->plates->render('login', ['msg'=> '403 - Unauthorized']);
+        }  else {
             //create articles per user - please send request via id & not seotitle
             echo $this->plates->render('userarticles', ['articles' => 'placeholder']);
         }
