@@ -20,7 +20,7 @@ class Home implements ControllerInterface
     public function execute(ServerRequestInterface $request)
     {
         $articles = $this->conn->getAllArticle();
-        $displaybuttonlogin = !isset($_SESSION) ? "Login" : "Go to your Article Management";
+        $displaybuttonlogin = !isset($_SESSION['mail']) ? "Login" : "Go to your Article Management";
         echo $this->plates->render('home', ['logbtn' => $displaybuttonlogin, 'articles'=> $articles]);
     }
 

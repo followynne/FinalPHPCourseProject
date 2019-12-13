@@ -21,10 +21,9 @@ class ConnDB extends ReadOnlyOpt
       $pwd = password_hash($data['pwd'], PASSWORD_DEFAULT);
       $query = 'insert into users (mail, pwd) values (:name, :pwd);';
       $q = $this->pdo->prepare($query);
-      $q->bindValue(':user', $data['mail']);
+      $q->bindValue(':name', $data['mail']);
       $q->bindValue(':pwd', $pwd);
-      $res = $q->execute();
-      print_r($res);
+      $q->execute();
       echo ("It went well... welcome to the family.");
       return;
     } catch (PDOException $ex) {

@@ -10,7 +10,7 @@ use \PDOException;
 class ReadOnlyOpt
 {
     protected $pdo;
-    
+
     public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
@@ -20,7 +20,7 @@ class ReadOnlyOpt
 
     function checkUser(string $data)
     {
-        $query = 'SELECT id FROM users where mail = :user;';
+        $query = 'SELECT id, mail, pwd FROM users where mail = :user;';
         $q = $this->pdo->prepare($query);
         $q->bindValue(':user', $data);
         $q->execute();
@@ -30,13 +30,9 @@ class ReadOnlyOpt
     function checkLogin(array $data)
     {
         $mail = $data['mail'];
-        $query = 'SELECT * FROM users where mail = :user;';
-        $q = $this->pdo->prepare($query);
-        $q->bindValue(':user', $mail);
-        $q->execute();
-        $result = $q->fetch();
-        if (!$result) {
-            return "User doesn't exist.";
+        $result = $this->checkUser($mail);
+        if ($result['id'] == null) {
+            return false;
         } else {
             if (!password_verify($data['pwd'], $result['pwd'])) {
                 return false;

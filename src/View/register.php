@@ -13,7 +13,7 @@
     </form>
 </div>
 <div>
-    <?php if($this->e($msg)) :?>
+    <?php if($this->e($msg)!=null) :?>
         <?= $this->e($msg)?>
     <?php endif ?>
 </div>

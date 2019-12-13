@@ -1,8 +1,11 @@
 <html lang="it">
+
 <head>
-    <title><?=$this->e($title)?></title>
+    <title><?= $this->e($title) ?></title>
 </head>
+
 <body>
-    <?=$this->section('content')?>
+    <?= $this->section('content') ?>
 </body>
+
 </html>
