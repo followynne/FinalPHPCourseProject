@@ -5,7 +5,7 @@
 <h1>Login</h1>
 <div>
     <form action="/login" method="POST" name="login">
-        <p>email</p><input type="email" name="user"><br/>
+        <p>email</p><input type="email" name="mail"><br/>
         <p>password</p><input type="password" name="pwd"><br/>
         <input type="submit" name="login" >
     </form>

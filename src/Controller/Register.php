@@ -32,12 +32,13 @@ class Register implements ControllerInterface
     } else {
       if (filter_var($body['mail'], FILTER_VALIDATE_EMAIL) && strlen($body['pwd']) > 5 && $body['pwd']==$body['pwd-check']) {
         try {
-          if ($this->conn->checkUser($request->getParsedBody()['mail']) != null) {
+          $res = $this->conn->checkUser($request->getParsedBody()['mail']);
+          if ($res['id'] != null) {
             echo $this->plates->render('register',  ['msg' => 'Error Registering Data.']);
             return;
           } else {
-            $this->conn->registerNewUser($request->getParsedBody());return;
-            echo $this->plates->render('login', ['msg' => 'Article added.']);
+            $this->conn->registerNewUser($request->getParsedBody());
+            echo $this->plates->render('login', ['msg' => 'Account Created.']);
             die();
           }
         } catch (PDOException $ex) {
