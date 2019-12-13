@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 declare(strict_types=1);
 namespace SimpleMVC\Controller;
 
@@ -29,13 +31,17 @@ class Login implements ControllerInterface
             }
 
         } else {
+<<<<<<< HEAD
             if($this->conn->checkLogin($request->getParsedBody())){
                 // set session cookie
+=======
+            if($this->conn->checkLogin($_POST)){
+
+>>>>>>> refs/remotes/origin/master
                 $_SESSION['mail'] = $request->getParsedBody()['mail'];
                 echo $this->plates->render('admin');
+                
             } else {
-
-                // add here what to do if login fail
 
                 echo $this->plates->render('login');
             }

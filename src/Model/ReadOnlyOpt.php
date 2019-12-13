@@ -39,9 +39,9 @@ class ReadOnlyOpt
             return "User doesn't exist.";
         } else {
             if (!password_verify($data['pwd'], $result['pwd'])) {
-                return "Access Denied";
+                return false;
             } else {
-                return "Access Confirmed, Bzzzz, open the doors, disclose the secrets.";
+                return true;
             }
         }
     }
