@@ -12,3 +12,8 @@
     <div>Se non sei registrato, <a href="/register">clicca qui per farlo</a></div>
     <div></div>
 </div>
+<div>
+    <?php if($this->e($msg)) :?>
+        <?= $this->e($msg)?>
+    <?php endif ?>
+</div>

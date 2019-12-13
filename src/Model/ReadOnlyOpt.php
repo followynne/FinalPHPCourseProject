@@ -9,7 +9,8 @@ use \PDOException;
 
 class ReadOnlyOpt
 {
-    private $pdo;
+    protected $pdo;
+    
     public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
@@ -17,7 +18,7 @@ class ReadOnlyOpt
         $this->pdo->setAttribute(PDO::ATTR_ORACLE_NULLS, PDO::NULL_TO_STRING);
     }
 
-    function checkUser($data)
+    function checkUser(string $data)
     {
         $query = 'SELECT id FROM users where mail = :user;';
         $q = $this->pdo->prepare($query);
@@ -26,7 +27,7 @@ class ReadOnlyOpt
         return $q->fetch();
     }
 
-    function checkLogin($data)
+    function checkLogin(array $data)
     {
         $mail = $data['mail'];
         $query = 'SELECT * FROM users where mail = :user;';
@@ -53,7 +54,7 @@ class ReadOnlyOpt
         return $result;
     }
 
-    public function getArticleId($seotitle)
+    public function getArticleId(string $seotitle)
     {
         $sth = $this->pdo->prepare("SELECT * FROM articles WHERE seotitle = :id");
         $sth->bindParam(':id', $seotitle);

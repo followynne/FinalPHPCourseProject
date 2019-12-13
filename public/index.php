@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
-
+//session_start();
+//session_destroy();
 chdir(dirname(__DIR__));
 require 'vendor/autoload.php';
 

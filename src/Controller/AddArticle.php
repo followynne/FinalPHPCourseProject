@@ -15,7 +15,7 @@ class AddArticle implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
-        if (!isset($_SESSION)){
+        if (!isset($_SESSION['mail'])){
             echo $this->plates->render('login', []);
         } else {
             echo $this->plates->render('add', []);

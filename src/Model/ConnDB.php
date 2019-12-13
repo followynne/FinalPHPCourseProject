@@ -9,36 +9,27 @@ use \PDOException;
 
 class ConnDB extends ReadOnlyOpt
 {
-  private $pdo;
 
   public function __construct(PDO $pdo)
   {
-    $this->pdo = $pdo;
-    $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $this->pdo->setAttribute(PDO::ATTR_ORACLE_NULLS, PDO::NULL_TO_STRING);
+    parent::__construct($pdo);    
   }
 
-  function registerNewUser($data)
+  function registerNewUser(array $data)
   {
     try {
-      $query = 'select * from user_data where mail = :user;';
-      $q = $this->conn->prepare($query);
-      $q->bindParam(':user', $data['user']);
-      $q->execute();
-      $result = $q->fetch();
-      if (!isset($result)) {
-        $pwd = password_hash($data['pwd'], PASSWORD_DEFAULT);
-        $query = 'insert into users (mail, pwd) values (:name, :pwd);';
-        $q = $this->conn->prepare($query);
-        $q->bindParam(':user', $data['mail']);
-        $q->bindParam(':pwd', $pwd);
-        $q->execute();
-        return "It went well... welcome to the family.";
-      } else {
-        return "I'm sorry, your user couldnt' be created.";
-      }
+      $pwd = password_hash($data['pwd'], PASSWORD_DEFAULT);
+      $query = 'insert into users (mail, pwd) values (:name, :pwd);';
+      $q = $this->pdo->prepare($query);
+      $q->bindValue(':user', $data['mail']);
+      $q->bindValue(':pwd', $pwd);
+      $res = $q->execute();
+      print_r($res);
+      echo ("It went well... welcome to the family.");
+      return;
     } catch (PDOException $ex) {
-      return "I'm sorry, your user couldnt' be created.";
+      echo "I'm sorry, your user couldnt' be created.";
+      return;
     }
   }
 }

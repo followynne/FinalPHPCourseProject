@@ -20,18 +20,18 @@ class Login implements ControllerInterface
 
     public function execute(ServerRequestInterface $request)
     {
+        if($request->getMethod() != 'POST'){
 
-        if(!isset($_POST)){
-
-            if (isset($_SESSION)){
+            if (isset($_SESSION['mail'])){
                 echo $this->plates->render('admin');
             } else {
                 echo $this->plates->render('login');
             }
 
         } else {
-            if($this->conn->checkLogin($_POST)){
+            if($this->conn->checkLogin($request->getParsedBody())){
                 // set session cookie
+                $_SESSION['mail'] = $request->getParsedBody()['mail'];
                 echo $this->plates->render('admin');
             } else {
 
