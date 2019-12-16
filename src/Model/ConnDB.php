@@ -48,4 +48,34 @@ class ConnDB extends ReadOnlyOpt
       throw new PDOException;
     }
   }
+
+  function modifyArticle(array $data, int $id)
+  {
+    try {
+      $query = 'update articles set (title,seotitle,art_date,content) values (:title, :seotitle, :art_date, :content) where iduser = :iduser;';
+      $q = $this->pdo->prepare($query);
+      $q->bindValue(':iduser', $id);
+      $q->bindValue(':title', $data['title']);
+      $q->bindValue(':seotitle', $data['seotitle']);
+      $q->bindValue(':art_date', $data['articledate']);
+      $q->bindValue(':content', $data['content']);
+      $q->execute();
+      return true;
+    } catch (PDOException $ex) {
+      throw new PDOException;
+    }
+  }
+  
+  function deleteArticle(array $data, int $id)
+  {
+    try {
+      $query = 'delete from articles where iduser = :iduser;';
+      $q = $this->pdo->prepare($query);
+      $q->bindValue(':iduser', $id);
+      $q->execute();
+      return true;
+    } catch (PDOException $ex) {
+      throw new PDOException;
+    }
+  }
 }

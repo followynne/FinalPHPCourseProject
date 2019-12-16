@@ -23,8 +23,5 @@
     <?php endif ?>
 </div>
 
-<?php $this->start('javascript') ?>
-<script type="module" src="js/main.js"></script>
-<?php $this->stop() ?>
 
 
