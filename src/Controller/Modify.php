@@ -6,14 +6,17 @@ namespace SimpleMVC\Controller;
 
 use Psr\Http\Message\ServerRequestInterface;
 use League\Plates\Engine;
+use PDOException;
+use SimpleMVC\Model\ConnDB;
 
 class Modify implements ControllerInterface
 {
     protected $plates;
 
-    public function __construct(Engine $plates)
+    public function __construct(Engine $plates, ConnDB $conn)
     {
         $this->plates = $plates;
+        $this->conn = $conn;
     }
 
     public function execute(ServerRequestInterface $request)
@@ -21,11 +24,18 @@ class Modify implements ControllerInterface
         if ($_SESSION['mail'] == null) {
             echo $this->plates->render('login', ['msg'=> '403 - Unauthorized']);
         } else if ($request->getMethod() != 'POST') {
-            //create articles per user - please send request via id & not seotitle
             echo $this->plates->render('modify', []);
         } else {
-            // if modify goes well re-send to userarticles... like in the AddArticlePage
-            echo $this->plates->render('userarticles', []);
-        }
+            try {
+                $this->conn->modifyArticle($request->getParsedBody(), (int) $_SESSION['iduser']);
+                echo $this->plates->render('userarticles', ['msg' => 'Article modified']);
+            } catch (PDOException $ex) {
+                echo $this->plates->render('modify', ['msg' => 'I\'m sorry, your article couldnt\' be modified']);
+                die();
+            }
+    
     }
 }
+
+
+

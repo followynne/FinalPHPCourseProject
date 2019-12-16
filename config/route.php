@@ -15,4 +15,7 @@ return [
     'GET /userarticles' => Controller\UserArticles::class,
     'GET /modify' => Controller\Modify::class,
     'POST /modify' => Controller\Modify::class,
+    'GET /delete' => Controller\Delete::class,
+    'POST /delete' => Controller\Delete::class,
+
 ];

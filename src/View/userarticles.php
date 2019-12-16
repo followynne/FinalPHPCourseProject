@@ -12,5 +12,7 @@
         </a>
         <p><?= $this->e($data['art_date']) ?></p>
         <p><?= $this->e($data['content']) ?></p>
+        <a href="/modify"><input type="button" value="Modify"></a>
+        <a href="/delete"><input type="button" value="Delete"></a>
     </li>
 <?php endforeach ?>
