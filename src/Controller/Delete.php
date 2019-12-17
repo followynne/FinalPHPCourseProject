@@ -9,7 +9,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use PDOException;
 use SimpleMVC\Model\ConnDB;
 
-class DeleteArticle implements ControllerInterface
+class Delete implements ControllerInterface
 {
     protected $plates;
 
@@ -30,7 +30,7 @@ class DeleteArticle implements ControllerInterface
                 $this->conn->deleteArticle($request->getParsedBody(), (int) $_SESSION['iduser']);
                 echo $this->plates->render('userarticles', ['msg' => 'Article deleted.']);
             } catch (PDOException $ex) {
-                echo $this->plates->render('add', ['msg' => 'I\'m sorry, your article couldnt\' be deleted']);
+                echo $this->plates->render('delete', ['msg' => 'I\'m sorry, your article couldnt\' be deleted']);
                 die();
             }
         }

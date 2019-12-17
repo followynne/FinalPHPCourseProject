@@ -24,18 +24,27 @@ class Modify implements ControllerInterface
         if ($_SESSION['mail'] == null) {
             echo $this->plates->render('login', ['msg'=> '403 - Unauthorized']);
         } else if ($request->getMethod() != 'POST') {
-            echo $this->plates->render('modify', []);
+            $article = $this->conn->getArticleId($request->getQueryParams()['id']);
+            $_SESSION['tmp_id'] = $article['id'];
+            $_SESSION['seotitle'] = $article['seotitle'];
+            echo $this->plates->render('modify', ['article' => $article]);
         } else {
             try {
-                $this->conn->modifyArticle($request->getParsedBody(), (int) $_SESSION['iduser']);
-                echo $this->plates->render('userarticles', ['msg' => 'Article modified']);
+                if ($request->getQueryParams()['id'] == $_SESSION['seotitle']){
+                    $this->conn->modifyArticle($request->getParsedBody(), (int) $_SESSION['tmp_id']);
+                    echo $this->plates->render('userarticles', ['msg' => 'Article modified']);
+                } else {
+                    print_R($request->getParsedBody());
+                    echo $this->plates->render('modify',
+                                        ['article' => $this->conn->getArticleId($request->getQueryParams()['id']),
+                                         'msg' => 'It didn\'t work'
+                                        ]);
+                }
             } catch (PDOException $ex) {
                 echo $this->plates->render('modify', ['msg' => 'I\'m sorry, your article couldnt\' be modified']);
                 die();
             }
     
+        }
     }
 }
-
-
-

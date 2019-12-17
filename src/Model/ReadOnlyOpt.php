@@ -74,7 +74,22 @@ class ReadOnlyOpt
             $sth = $this->pdo->prepare("SELECT * FROM articles WHERE seotitle = :id");
             $sth->bindParam(':id', $seotitle);
             $sth->execute();
-            $result = $sth->fetch();
+            $result = $sth->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        } catch (PDOException $ex) {
+            echo "Error";
+            echo $ex;
+            return false;
+        }
+    }
+
+    public function getUserArticles (string $iduser)
+    {
+        try {
+            $sth = $this->pdo->prepare("SELECT * FROM articles WHERE iduser = :id");
+            $sth->bindParam(':id', $iduser);
+            $sth->execute();
+            $result = $sth->fetchAll();
             return $result;
         } catch (PDOException $ex) {
             echo "Error";

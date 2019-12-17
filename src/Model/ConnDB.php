@@ -52,9 +52,9 @@ class ConnDB extends ReadOnlyOpt
   function modifyArticle(array $data, int $id)
   {
     try {
-      $query = 'update articles set (title,seotitle,art_date,content) values (:title, :seotitle, :art_date, :content) where iduser = :iduser;';
+      $query = 'update articles set (title,seotitle,art_date,content) values (:title, :seotitle, :art_date, :content) where id = :id;';
       $q = $this->pdo->prepare($query);
-      $q->bindValue(':iduser', $id);
+      $q->bindValue(':id', $id);
       $q->bindValue(':title', $data['title']);
       $q->bindValue(':seotitle', $data['seotitle']);
       $q->bindValue(':art_date', $data['articledate']);

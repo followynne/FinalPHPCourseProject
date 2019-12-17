@@ -39,6 +39,7 @@ class Login implements ControllerInterface
                 $_SESSION['mail'] = $request->getParsedBody()['mail'];
                 $_SESSION['iduser'] = $id;
                 echo $this->plates->render('admin');
+                exit;
             }
         }
     }

@@ -8,12 +8,19 @@
 
 <h1>Modify Article</h1>
 <div>
-    <form action="/modarticle" method="POST" name="modify">
-        <p>Title</p><input type="text" style="width:500px;" name="title" required/><br/>
+    <form action="/modify?id="<?= $this->e($article['seotitle'])?> method="POST" name="modify">
+        <label for="title" >Title</label>
+        <input type="text" style="width:500px;" id="title" name="title" value="<?= $this->e($article['title'])?>" required/><br/>
         <p>Seo Title: please use only letters, numbers and dash (-) to divide words</p>
-            <input type="text" style="width:500px;" name="seotitle" pattern="[A-Za-z0-9\-]+" required/><br/>
-        <p>Article Date</p><input type="date" name="articledate" required/><br/>
-        <p>Text</p><textarea rows="20" cols="100" name="content" required></textarea>
+            <input type="text" style="width:500px;" name="seotitle"
+            pattern="[A-Za-z0-9\-]+" value="<?= $this->e($article['seotitle'])?>" required/><br/>
+        <p></p>
+        <label for="date">Article Date</label>
+        <input type="date" id="date"name="articledate" value="<?= $this->e($article['art_date'])?>" required/><br/>
+        <p></p>
+        <label for="content">Your content</label>
+        <textarea rows="20" cols="100" name="content" required><?= $this->e($article['content'])?>"
+        </textarea>
         <p></p>
         <input type="submit" id="modifiedart" name="Modify"/>
         <p>Please note: save your work on a notepad before submitting.</br> If the seo title has already been used or 
