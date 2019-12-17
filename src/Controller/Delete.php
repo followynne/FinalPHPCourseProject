@@ -23,14 +23,14 @@ class Delete implements ControllerInterface
     {
         if ($_SESSION['mail'] == null) {
             echo $this->plates->render('login', ['msg'=> '403 - Unauthorized']);
-        } else if ($request->getMethod() != 'POST') {
-            echo $this->plates->render('delete', []);
         } else {
             try {
-                $this->conn->deleteArticle($request->getParsedBody(), (int) $_SESSION['iduser']);
+                print_r($_SESSION['iduser']);
+                $this->conn->deleteArticle($request->getQueryParams()['id'], (int)$_SESSION['iduser']);
                 echo $this->plates->render('userarticles', ['msg' => 'Article deleted.']);
+                die();
             } catch (PDOException $ex) {
-                echo $this->plates->render('delete', ['msg' => 'I\'m sorry, your article couldnt\' be deleted']);
+                echo $this->plates->render('userarticles', ['msg' => 'I\'m sorry, your article couldn\'t be deleted']);
                 die();
             }
         }

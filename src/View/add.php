@@ -1,7 +1,8 @@
 <?php $this->layout('layout', ['title' => 'New Article']) ?>
 
+<a href="/userarticles"><input type="button" value="Go back to your articles"></a>
+<a href="/login"><input type="button" value="Go back to the Admin Page"></a>
 <a href="/"><input type="button" value="Go back to the Homepage"></a>
-<a href="/login"><input type="button" value="Go back to the Adminpage"></a>
 
 <h1>Add New Article</h1>
 <div>

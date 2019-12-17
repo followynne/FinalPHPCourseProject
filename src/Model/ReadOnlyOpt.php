@@ -83,7 +83,7 @@ class ReadOnlyOpt
         }
     }
 
-    public function getUserArticles (string $iduser)
+    public function getUserArticles (int $iduser)
     {
         try {
             $sth = $this->pdo->prepare("SELECT * FROM articles WHERE iduser = :id");

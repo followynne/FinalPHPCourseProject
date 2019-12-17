@@ -4,6 +4,11 @@
 <a href="/"><input type="button" value="Go back to the Homepage"></a>
 
 <h1>I tuoi articoli</h1>
+<h2>
+    <?php if($this->e($msg)) :?>
+        <?= $this->e($msg)?>
+    <?php endif ?>
+</h2>
 <ul>
 <?php foreach($articles as $data): ?>
     <li>

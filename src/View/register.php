@@ -1,7 +1,7 @@
 <?php $this->layout('layout', ['title' => 'Registration Page']) ?>
 
-<a href="/"><input type="button" value="Go back to the Homepage"></a>
 <a href="/login"><input type="button" value="Go back to the Login"></a>
+<a href="/"><input type="button" value="Go back to the Homepage"></a>
 
 <h1>Register to the Matrix</h1>
 <div>

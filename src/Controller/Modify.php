@@ -23,25 +23,29 @@ class Modify implements ControllerInterface
     {
         if ($_SESSION['mail'] == null) {
             echo $this->plates->render('login', ['msg'=> '403 - Unauthorized']);
-        } else if ($request->getMethod() != 'POST') {
+        } else if ($request->getMethod() == 'GET' ) {
             $article = $this->conn->getArticleId($request->getQueryParams()['id']);
             $_SESSION['tmp_id'] = $article['id'];
             $_SESSION['seotitle'] = $article['seotitle'];
             echo $this->plates->render('modify', ['article' => $article]);
-        } else {
+        } else if ($request->getMethod() == 'POST') {
             try {
                 if ($request->getQueryParams()['id'] == $_SESSION['seotitle']){
                     $this->conn->modifyArticle($request->getParsedBody(), (int) $_SESSION['tmp_id']);
-                    echo $this->plates->render('userarticles', ['msg' => 'Article modified']);
+                    echo $this->plates->render('userarticles',
+                                        [   'articles' => $this->conn->getUserArticles($_SESSION['iduser']),
+                                            'msg' => 'Article modified'
+                                        ]);
                 } else {
-                    print_R($request->getParsedBody());
                     echo $this->plates->render('modify',
-                                        ['article' => $this->conn->getArticleId($request->getQueryParams()['id']),
-                                         'msg' => 'It didn\'t work'
+                                        ['msg' => 'You tried to hack the site... funny ah ha nope.'
                                         ]);
                 }
             } catch (PDOException $ex) {
-                echo $this->plates->render('modify', ['msg' => 'I\'m sorry, your article couldnt\' be modified']);
+                echo $this->plates->render('modify',
+                                        ['article' => $this->conn->getArticleId($request->getQueryParams()['id']),
+                                         'msg' => 'It didn\'t work, check your data.'
+                                        ]);
                 die();
             }
     
