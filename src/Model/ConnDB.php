@@ -22,7 +22,7 @@ class ConnDB extends ReadOnlyOpt
       $query = 'insert into users (mail, pwd) values (:name, :pwd);';
       $q = $this->pdo->prepare($query);
       $q->bindValue(':name', $data['mail']);
-      $q->bindValue(':pwd', $pwd);
+      $q->bindValue(':pwd', hash('sha256', $pwd));
       $q->execute();
       echo ("It went well... welcome to the family.");
       return;
