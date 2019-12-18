@@ -41,7 +41,7 @@ class ReadOnlyOpt
             if ($result['id'] == null) {
                 return false;
             } else {
-                if (!password_verify($data['pwd'], $result['pwd'])) {
+                if (!password_verify(hash('sha256', $data['pwd']), $result['pwd'])) {
                     return false;
                 } else {
                     return $result['id'];
