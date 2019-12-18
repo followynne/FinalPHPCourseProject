@@ -30,6 +30,5 @@
         <input type="submit" id="modifiedart" name="Modify"/>
         <p>Please note: save your work on a notepad before submitting.</br> If the seo title has already been used or 
         an error occurs while processing your data, this page will be refreshed and the data will be lost.</p>
-        https://laracasts.com/discuss/channels/laravel/delete-method-with-href
     </form>
 </div>

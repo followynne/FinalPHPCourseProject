@@ -25,15 +25,22 @@ class Modify implements ControllerInterface
             echo $this->plates->render('login', ['msg'=> '403 - Unauthorized']);
         } else if ($request->getMethod() == 'GET' ) {
             $article = $this->conn->getArticleId($request->getQueryParams()['id']);
-            $_SESSION['tmp_id'] = $article['id'];
-            $_SESSION['seotitle'] = $article['seotitle'];
-            echo $this->plates->render('modify', ['article' => $article]);
+            if ($_SESSION['iduser'] == $article['iduser']){
+                $_SESSION['tmp_id'] = $article['id'];
+                $_SESSION['seotitle'] = $article['seotitle'];
+                echo $this->plates->render('modify', ['article' => $article, 'msg' => '']);
+            } else {
+                echo $this->plates->render('userarticles',
+                                        [  'articles' => $this->conn->getUserArticles((int)$_SESSION['iduser']),
+                                            'msg' => 'Not this time mate, non this time...'
+                                        ]);
+            }
         } else if ($request->getMethod() == 'POST') {
             try {
                 if ($request->getQueryParams()['id'] == $_SESSION['seotitle']){
                     $this->conn->modifyArticle($request->getParsedBody(), (int) $_SESSION['tmp_id']);
                     echo $this->plates->render('userarticles',
-                                        [   'articles' => $this->conn->getUserArticles($_SESSION['iduser']),
+                                        [   'articles' => $this->conn->getUserArticles((int)$_SESSION['iduser']),
                                             'msg' => 'Article modified'
                                         ]);
                 } else {

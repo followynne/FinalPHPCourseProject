@@ -24,7 +24,7 @@ class AddArticle implements ControllerInterface
         if ($_SESSION['mail'] == null) {
             echo $this->plates->render('login', ['msg'=> '403 - Unauthorized']);
         } else if ($request->getMethod() != 'POST') {
-            echo $this->plates->render('add', []);
+            echo $this->plates->render('add', ['msg' => '']);
         } else {
             try {
                 $this->conn->addNewArticle($request->getParsedBody(), (int) $_SESSION['iduser']);

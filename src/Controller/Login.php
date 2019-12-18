@@ -27,7 +27,7 @@ class Login implements ControllerInterface
         }
         if ($request->getMethod() != 'POST') {
             if (isset($_SESSION['mail'])) {
-                echo $this->plates->render('admin');
+                echo $this->plates->render('admin', ['msg' => '']);
             } else {
                 echo $this->plates->render('login', ['msg' => 'Benvenuto.']);
             }
@@ -38,7 +38,7 @@ class Login implements ControllerInterface
             } else {
                 $_SESSION['mail'] = $request->getParsedBody()['mail'];
                 $_SESSION['iduser'] = $id;
-                echo $this->plates->render('admin');
+                echo $this->plates->render('admin', ['msg' => '']);
                 exit;
             }
         }
@@ -47,7 +47,6 @@ class Login implements ControllerInterface
     private function logout (){
         session_unset();
         session_destroy();
-        session_regenerate_id(true);
         header("Location:/");
     }
 }

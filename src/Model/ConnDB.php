@@ -73,6 +73,7 @@ class ConnDB extends ReadOnlyOpt
       $q->bindValue(':id', $id);
       $q->bindValue(':iduser', $iduser);
       $q->execute();
+      return $q->rowCount();
     } catch (PDOException $ex) {
       throw new PDOException;
     }

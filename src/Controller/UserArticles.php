@@ -22,7 +22,7 @@ class UserArticles implements ControllerInterface
         if ($_SESSION['mail'] == null) {
             echo $this->plates->render('login', ['msg'=> '403 - Unauthorized']);
         }  else {
-            echo $this->plates->render('userarticles', ['articles' => $this->conn->getUserArticles((int)$_SESSION['iduser'])]);
+            echo $this->plates->render('userarticles', ['articles' => $this->conn->getUserArticles((int)$_SESSION['iduser']), 'msg' => '']);
         }
     }
 

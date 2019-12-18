@@ -25,12 +25,14 @@ class Delete implements ControllerInterface
             echo $this->plates->render('login', ['msg'=> '403 - Unauthorized']);
         } else {
             try {
-                print_r($_SESSION['iduser']);
-                $this->conn->deleteArticle($request->getQueryParams()['id'], (int)$_SESSION['iduser']);
-                echo $this->plates->render('userarticles', ['msg' => 'Article deleted.']);
-                die();
+                if ($this->conn->deleteArticle($request->getQueryParams()['id'], (int)$_SESSION['iduser'])>0){
+                    echo $this->plates->render('userarticles', ['msg' => 'Article deleted.']);
+                    die();
+                } else {
+                    throw new PDOException;
+                }
             } catch (PDOException $ex) {
-                echo $this->plates->render('userarticles', ['msg' => 'I\'m sorry, your article couldn\'t be deleted']);
+                echo $this->plates->render('userarticles', ['articles' => $this->conn->getUserArticles((int)$_SESSION['iduser']),'msg' => 'I\'m sorry, your article couldn\'t be deleted']);
                 die();
             }
         }
