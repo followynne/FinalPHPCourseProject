@@ -13,6 +13,7 @@ use SimpleMVC\Model\ReadOnlyOpt;
 final class HomeTest extends TestCase
 {
     protected $container;
+
     public function setUp():void
     {
         $builder = new ContainerBuilder();
@@ -23,10 +24,23 @@ final class HomeTest extends TestCase
         $this->request = $this->getMockBuilder(ServerRequestInterface::class)->getMock();
     }
 
-    public function testExecuteRenderHomeView(): void
+    public function testExecuteRenderHomeNotLoggedView(): void
     {
+        $_SESSION['mail'] = null;
         $test = $this->container->get(ReadOnlyOpt::class);
-        $this->expectOutputString($this->plates->render('home', ['logbtn' => 'Login', 'articles' => $test->getAllArticle()]));
-        $this->home->execute($this->request);
+        $t = $this->expectOutputString($this->plates->render('home', ['logbtn' => 'Login', 'articles' => $test->getAllArticle()]));
+        $t2 = $this->home->execute($this->request);
+        $this->assertEquals($t, $t2);
+    }
+
+    public function testExecuteRenderHomeLoggedView(): void
+    {
+        $_SESSION['mail'] = 'prova@prova.it';
+        $test = $this->container->get(ReadOnlyOpt::class);
+        $t = $this->expectOutputString($this->plates->render('home', [
+                            'logbtn' => 'Go to your Article Management',
+                            'articles' => $test->getAllArticle()]));
+        $t2 = $this->home->execute($this->request);
+        $this->assertEquals($t, $t2);
     }
 }

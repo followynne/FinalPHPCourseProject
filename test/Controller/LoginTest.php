@@ -17,11 +17,4 @@ final class LoginTest extends TestCase
         $this->request = $this->getMockBuilder(ServerRequestInterface::class)->getMock();
     }
 
-    public function testExecuteRender404View(): void
-    {
-        // $this->expectOutputString($this->plates->render('404'));
-        // $this->home->execute($this->request);
-
-        // $this->assertEquals(404, http_response_code());
-    }
 }

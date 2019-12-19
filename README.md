@@ -1,5 +1,5 @@
 # Progetto finale del corso "PHP Programming"
-### Gruppo: [M. Gregoricchio](matteogregoricchio.com), [D. Carbonati](https://github.com/DaviCarbo), [I. Lo Presti](https://github.com/lucyilaria)
+### Gruppo: [M. Gregoricchio](https://www.matteogregoricchio.com), [D. Carbonati](https://github.com/DaviCarbo), [I. Lo Presti](https://github.com/lucyilaria)
 
 Progetto finale del corso curricolare di programmazione in PHP presso **l'ITS ICT Piemonte**.
 Il progetto consistetà di una *web-application* che simulerà il funzionamento un quotidino online.
@@ -38,6 +38,9 @@ composer install
 Per creare e settare database e utenti che vengono usati dall'applicativo, eseguire i seguenti comandi come *root user* in shell dalla root del progetto.
 Si prega di sostituire con degli username/password scelti i valori indicati tra []. 
 ```
+$ sudo mysql // entrare in mysql come utente root del database (può variare a seconda della distro Linux)
+$ CREATE DATABASE FinalCourse;
+$ exit; // from database input
 $ sudo mysql FinalCourse < config/prjdbwithfakedata.sql
 $ sudo mysql
 $ GRANT SELECT ON FinalCourse.* TO '[readonlyusername]'@'localhost' IDENTIFIED BY '[password]'; // crea un utente per le operazioni read
