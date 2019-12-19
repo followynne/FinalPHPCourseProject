@@ -1,5 +1,5 @@
 # Progetto finale del corso "PHP Programming"
-### Gruppo: M. Gregoricchio[(matteogregoricchio.com)], D. Carbonati[(https://github.com/DaviCarbo)], I. Lo Presti[(https://github.com/lucyilaria)]
+### Gruppo: [M. Gregoricchio](matteogregoricchio.com), [D. Carbonati](https://github.com/DaviCarbo), [I. Lo Presti](https://github.com/lucyilaria)
 
 Progetto finale del corso curricolare di programmazione in PHP presso **l'ITS ICT Piemonte**.
 Il progetto consistetà di una *web-application* che simulerà il funzionamento un quotidino online.
