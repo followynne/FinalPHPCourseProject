@@ -26,7 +26,7 @@ class Delete implements ControllerInterface
         } else {
             try {
                 if ($this->conn->deleteArticle($request->getQueryParams()['id'], (int)$_SESSION['iduser'])>0){
-                    echo $this->plates->render('userarticles', ['msg' => 'Article deleted.']);
+                    echo $this->plates->render('userarticles', ['articles' => $this->conn->getUserArticles((int)$_SESSION['iduser']),'msg' => 'Article deleted.']);
                     die();
                 } else {
                     throw new PDOException;

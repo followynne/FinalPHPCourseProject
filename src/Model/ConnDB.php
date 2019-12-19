@@ -24,7 +24,6 @@ class ConnDB extends ReadOnlyOpt
       $q->bindValue(':name', $data['mail']);
       $q->bindValue(':pwd', $pwd);
       $q->execute();
-      echo ("It went well... welcome to the family.");
       return;
     } catch (PDOException $ex) {
       echo "I'm sorry, your user couldnt' be created.";

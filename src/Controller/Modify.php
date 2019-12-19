@@ -25,6 +25,9 @@ class Modify implements ControllerInterface
             echo $this->plates->render('login', ['msg'=> '403 - Unauthorized']);
         } else if ($request->getMethod() == 'GET' ) {
             $article = $this->conn->getArticleId($request->getQueryParams()['id']);
+            /** 
+             * check if article requested belongs to the user
+             */
             if ($_SESSION['iduser'] == $article['iduser']){
                 $_SESSION['tmp_id'] = $article['id'];
                 $_SESSION['seotitle'] = $article['seotitle'];
@@ -37,6 +40,9 @@ class Modify implements ControllerInterface
             }
         } else if ($request->getMethod() == 'POST') {
             try {
+                /**
+                 * check if the /modify id sent in POST is the same id opened previously via /modify GET
+                 */
                 if ($request->getQueryParams()['id'] == $_SESSION['seotitle']){
                     $this->conn->modifyArticle($request->getParsedBody(), (int) $_SESSION['tmp_id']);
                     echo $this->plates->render('userarticles',

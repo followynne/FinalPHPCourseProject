@@ -29,7 +29,7 @@ class Login implements ControllerInterface
             if (isset($_SESSION['mail'])) {
                 echo $this->plates->render('admin', ['msg' => '']);
             } else {
-                echo $this->plates->render('login', ['msg' => 'Benvenuto.']);
+                echo $this->plates->render('login', ['msg' => 'Welcome.']);
             }
         } else {
             $id = $this->conn->checkLogin($request->getParsedBody());
