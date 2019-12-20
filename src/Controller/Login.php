@@ -47,6 +47,7 @@ class Login implements ControllerInterface
     private function logout (){
         session_unset();
         session_destroy();
+        setcookie('msg', 'See you later!');
         header("Location:/");
     }
 }

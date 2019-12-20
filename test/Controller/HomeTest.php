@@ -28,7 +28,7 @@ final class HomeTest extends TestCase
     {
         $_SESSION['mail'] = null;
         $test = $this->container->get(ReadOnlyOpt::class);
-        $t = $this->expectOutputString($this->plates->render('home', ['logbtn' => 'Login', 'articles' => $test->getAllArticle()]));
+        $t = $this->expectOutputString($this->plates->render('home', ['logbtn' => 'Login', 'articles' => $test->getAllArticle(), 'msg'=>'']));
         $t2 = $this->home->execute($this->request);
         $this->assertEquals($t, $t2);
     }
@@ -39,7 +39,9 @@ final class HomeTest extends TestCase
         $test = $this->container->get(ReadOnlyOpt::class);
         $t = $this->expectOutputString($this->plates->render('home', [
                             'logbtn' => 'Go to your Article Management',
-                            'articles' => $test->getAllArticle()]));
+                            'articles' => $test->getAllArticle(),
+                            'msg'=>''
+                            ]));
         $t2 = $this->home->execute($this->request);
         $this->assertEquals($t, $t2);
     }

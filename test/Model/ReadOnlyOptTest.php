@@ -37,6 +37,11 @@ final class ReadOnlyOptTest extends TestCase
         $this->assertFalse($this->test->checkLogin(array("mail" => 'exception', 'pwd' => '')));
         $this->assertFalse($this->test->checkLogin(array("mail" => 'prova@prova.it', 'pwd' => '')));
         $this->assertIsString($this->test->checkLogin(array("mail" => 'prova@prova.it', 'pwd' => 'marcone')));
+    }
 
+    public function testGetAllArticle() : void 
+    {
+        //$this->expectException(PDOException::class);
+        $this->assertIsArray($this->test->GetAllArticle());
     }
 }

@@ -25,39 +25,50 @@ Per usare il progetto è necessario avere installati sulla propria macchina Linu
 **- PHP**
 **- Composer**
 
+Un appunto: nell'applicativo sono usati due utenti di Database, uno per operazione Read uno per operazioni Crud. Ciò è legato alla volontà di separare le funzionalità read/write, nell'ottica di un utilizzo reale per ragioni di sicurezza.
+
 Dopo aver clonato il progetto tramite shell con il comando
 ```
-git clone https://github.com/followynne/FinalPHPCourseProject [chooseFolderName]
+$ git clone https://github.com/followynne/FinalPHPCourseProject [opt: OutputFolderName]
 ```
 
 è necessario procedere a installare le dipendenza usando il seguente comando in shell dalla root del progetto:
 ```
-composer install
+$ composer install
 ```
 
-Per creare e settare database e utenti che vengono usati dall'applicativo, eseguire i seguenti comandi come *root user* in shell dalla root del progetto.
-Si prega di sostituire con degli username/password scelti i valori indicati tra []. 
+Per creare e settare database e utenti che verranno usati dall'applicativo, eseguire i seguenti comandi come *root user* in shell dalla root del progetto.
+Si prega di sostituire con username/password scelti i seguenti valori:
+- readonlyusername
+- password
+- dbadminusername
+- password2
+
 ```
 $ sudo mysql // entrare in mysql come utente root del database (può variare a seconda della distro Linux)
 $ CREATE DATABASE FinalCourse;
 $ exit; // from database input
-$ sudo mysql FinalCourse < config/prjdbwithfakedata.sql
+$ sudo mysql FinalCourse < setup/prjdbwithfakedata.sql
 $ sudo mysql
-$ GRANT SELECT ON FinalCourse.* TO '[readonlyusername]'@'localhost' IDENTIFIED BY '[password]'; // crea un utente per le operazioni read
-$ GRANT ALL PRIVILEGES ON FinalCourse.* TO '[dbadminusername]'@'localhost' IDENTIFIED BY '[password2]'; // crea un utente per le operazioni CRUD
+$ GRANT SELECT ON FinalCourse.* TO '[eadonlyusername'@'localhost' IDENTIFIED BY 'password'; // crea un utente per le operazioni read
+$ GRANT ALL PRIVILEGES ON FinalCourse.* TO 'dbadminusername'@'localhost' IDENTIFIED BY 'password2'; // crea un utente per le operazioni CRUD
 $ FLUSH PRIVILEGES;
 ```
 
-Il file .sql in config/ carica già dei sample data. Come user di test è possibile usare l'utente:
+Dentro la cartella *config/* è necessario spostare il file **.env.example** (presente in *setup/*).
+Per prima cosa rinominare il file come **.env** (attenzione a non rinominarlo come .env.txt in ambiente Windows). Successivamente sostituire al suo interno i campi **readonlyusername, password, dbadminusername, password2** con i corrispettivi username/password inseriti poco prima in database.
+In ultimo spostare questo file **.env** nella cartella *config/*.
+
+Il file .sql in setup/ carica già dei sample data. Come user di test già presente è possibile usare l'utente:
 - username: *prova@prova.it*
 - password: *marcone*
-
-Dentro la cartella *config/* è necessario modificare il file **.env.example**.
-Per prima cosa rinominare il file come **.env** (attenzione a non rinominarlo come .env.txt). Successivamente sostituire i valori *yourvalue* con gli username/password del database inseriti poco prima.
-I campi user e password si riferiscono all'utente per operazioni CRUD, user_readOnly e password_readOnly all'utente per operazioni read.
+Per avere alcuni sample articles aggiornati alla data di avvio del progetto, si consiglia di eseguire dopo i setup precedenti i seguenti comandi:
+```
+$ php setup/updateDbScript.php
+```
 
 Una volta che sono state eseguite queste operazioni, dalla root folder eseguire in shell i seguenti comandi:
 ```
-php -S 0.0.0.0:4000 -t public/
+$ php -S 0.0.0.0:4000 -t public/
 ```
 Aprire **localhost:4000**, se compaiono degli articoli il progetto è configurato e pronto all'uso! Have Fun!

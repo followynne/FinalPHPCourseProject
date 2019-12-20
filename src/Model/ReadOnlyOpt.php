@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleMVC\Model;
 
+use DateTime;
 use \PDO;
 use \PDOException;
 
@@ -56,9 +57,11 @@ class ReadOnlyOpt
 
     public function getAllArticle()
     {
+        $today = new DateTime('now');
+        $format = $today->format('Y-m-d');
         try {
-            $sth = $this->pdo->prepare("SELECT * FROM articles;");
-            $sth->execute();
+            $sth = $this->pdo->prepare("SELECT * FROM articles WHERE art_date = :date;");
+            $sth->execute([':date' => $format]);
             $result = $sth->fetchAll();
             return $result;
         } catch (PDOException $ex) {

@@ -12,7 +12,7 @@ class ConnDB extends ReadOnlyOpt
 
   public function __construct(PDO $pdo)
   {
-    parent::__construct($pdo);    
+    parent::__construct($pdo);
   }
 
   function registerNewUser(array $data)
@@ -33,16 +33,21 @@ class ConnDB extends ReadOnlyOpt
 
   function addNewArticle(array $data, int $id)
   {
+    $regex = preg_match("/^[A-Za-z0-9-]+$/", $data['seotitle']);
     try {
-      $query = 'insert into articles (iduser, title,seotitle,art_date,content) values (:iduser, :title, :seotitle, :art_date, :content);';
-      $q = $this->pdo->prepare($query);
-      $q->bindValue(':iduser', $id);
-      $q->bindValue(':title', $data['title']);
-      $q->bindValue(':seotitle', $data['seotitle']);
-      $q->bindValue(':art_date', $data['articledate']);
-      $q->bindValue(':content', $data['content']);
-      $q->execute();
-      return true;
+      if (!$regex) {
+        throw new PDOException();
+      } else {
+        $query = 'insert into articles (iduser, title,seotitle,art_date,content) values (:iduser, :title, :seotitle, :art_date, :content);';
+        $q = $this->pdo->prepare($query);
+        $q->bindValue(':iduser', $id);
+        $q->bindValue(':title', $data['title']);
+        $q->bindValue(':seotitle', $data['seotitle']);
+        $q->bindValue(':art_date', $data['articledate']);
+        $q->bindValue(':content', $data['content']);
+        $q->execute();
+        return true;
+      }
     } catch (PDOException $ex) {
       throw new PDOException;
     }
@@ -50,20 +55,26 @@ class ConnDB extends ReadOnlyOpt
 
   function modifyArticle(array $data, int $id)
   {
+    $regex = preg_match("/^[A-Za-z0-9-]+$/", $data['seotitle']);
+
     try {
-      $query = 'update articles set title = :title, seotitle = :seotitle, art_date = :art_date, content = :content where id = :id;';
-      $q = $this->pdo->prepare($query);
-      $q->bindValue(':id', $id);
-      $q->bindValue(':title', $data['title']);
-      $q->bindValue(':seotitle', $data['seotitle']);
-      $q->bindValue(':art_date', $data['articledate']);
-      $q->bindValue(':content', $data['content']);
-      $q->execute();
+      if (!$regex) {
+        throw new PDOException();
+      } else {
+        $query = 'update articles set title = :title, seotitle = :seotitle, art_date = :art_date, content = :content where id = :id;';
+        $q = $this->pdo->prepare($query);
+        $q->bindValue(':id', $id);
+        $q->bindValue(':title', $data['title']);
+        $q->bindValue(':seotitle', $data['seotitle']);
+        $q->bindValue(':art_date', $data['articledate']);
+        $q->bindValue(':content', $data['content']);
+        $q->execute();
+      }
     } catch (PDOException $ex) {
       throw new PDOException;
     }
   }
-  
+
   function deleteArticle(string $id, int $iduser)
   {
     try {

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace SimpleMVC\Test\Controller;
@@ -23,8 +24,8 @@ final class DeleteTest extends TestCase
         $this->request = $this->getMockBuilder(ServerRequestInterface::class)->getMock();
     }
 
-    public function tearDown() : void {
-        
+    public function tearDown(): void
+    {
     }
 
     public function testExecuteDeleteForbidden(): void
@@ -34,19 +35,17 @@ final class DeleteTest extends TestCase
         $res = $this->expectOutputString($this->plates->render('login', ['msg' => '403 - Unauthorized']));
         $res2 = $this->home->execute($this->request);
         $this->assertEquals($res, $res2);
-    
     }
 
-    public function testExecuteDeleteGet(): void
-    {
-        $_SESSION['mail'] = 'prova@prova.it';
-        $_SESSION['iduser'] = '1';
-        $req = new ServerRequest([], [], 'http://localhost:9999/delete', 'GET', 'php://input', [] , [], ['id'=>'prova']);
-        $this->home = new Delete($this->plates, $this->container->get(ConnDB::class));
-        $this->expectOutputString('userarticles', [
-                            'articles' => $this->container->get(ConnDB::class)->getUserArticles((int)$_SESSION['iduser']),
-                            'msg' => 'I\'m sorry, your article couldn\'t be deleted']);
-        $this->home->execute($req);
-        //$this->assertEquals($res, $res2);
-    }
+    // public function testExecuteDeleteGet(): void
+    // {
+    //     $_SESSION['mail'] = 'prova@prova.it';
+    //     $_SESSION['iduser'] = '1';
+    //     $req = new ServerRequest([], [], 'http://localhost:9999/delete', 'GET', 'php://input', [], [], ['id' => 'prova']);
+    //     $this->home = new Delete($this->plates, $this->container->get(ConnDB::class));
+    //     $this->expectOutputString('userarticles', [
+    //                         'articles' => $this->container->get(ConnDB::class)->getUserArticles((int)$_SESSION['iduser']),
+    //                         'msg' => 'I\'m sorry, your article couldn\'t be deleted']);
+    //     $this->home->execute($req);
+    // }
 }

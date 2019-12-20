@@ -21,7 +21,12 @@ class Home implements ControllerInterface
     {
         $articles = $this->conn->getAllArticle();
         $displaybuttonlogin = !isset($_SESSION['mail']) ? "Login" : "Go to your Article Management";
-        echo $this->plates->render('home', ['logbtn' => $displaybuttonlogin, 'articles'=> $articles]);
+        $out = $request->getCookieParams()['msg'];
+        setcookie('msg', '', time() - 3600);
+        echo $this->plates->render('home', [
+            'logbtn' => $displaybuttonlogin,
+            'articles'=> $articles,
+            'msg' => $out ]);
     }
 
 }

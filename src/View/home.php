@@ -4,6 +4,12 @@
     <?php if($this->e($logbtn) == "Go to your Article Management") :?>
         <a href="/logout"><input type="button" value="Log Out"></a>
     <?php endif ?>
+<h3>
+    <?php if($this->e($msg)) :?>
+        <?= $this->e($msg)?>
+    <?php endif ?>
+</h3>
+
 
 <h1>Home page</h1>
 <ul>
