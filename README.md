@@ -62,6 +62,7 @@ In ultimo spostare questo file **.env** nella cartella *config/*.
 Il file .sql in setup/ carica già dei sample data. Come user di test già presente è possibile usare l'utente:
 - username: *prova@prova.it*
 - password: *marcone*
+
 Per avere alcuni sample articles aggiornati alla data di avvio del progetto, si consiglia di eseguire dopo i setup precedenti i seguenti comandi:
 ```
 $ php setup/updateDbScript.php
